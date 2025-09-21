@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://sivanesh.web.app/sitemap.xml
+Sitemap: https://sivanesh.me/sitemap.xml
+
