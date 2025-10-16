@@ -1,55 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 - Page Not Found</title>
   <style>
+    :root {
+      --purple1: #7b2ff7;
+      --purple2: #f107a3;
+      --light-purple: #f3e8ff;
+      --purple-text: #7b2ff7;
+      --gray: #6c6c6c;
+      --text: #1d1d1f;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #fff;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(#e0e0e0 1px, transparent 1px),
+                        linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.12;
+      z-index: 0;
+    }
+
+    .container {
       text-align: center;
+      z-index: 1;
+      max-width: 400px;
+      width: 100%;
     }
-    img {
-      width: 150px;
-      max-width: 50%;
-      margin-bottom: 30px;
+
+    /* Centered logo with shimmer effect */
+    .icon {
+      width: 110px;
+      height: 110px;
+      margin: 10px auto 0;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px rgba(123, 47, 247, 0.15);
+      animation: float 6s ease-in-out infinite;
     }
-    h1 {
-      font-size: 4rem;
-      margin: 0 0 10px 0;
-      color: #ff4c4c;
+
+    .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
+
+    .icon::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 150%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 100%
+      );
+      animation: shimmer 4s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(150%); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    h2 {
+      margin-top: 1.4rem;
+      font-weight: 600;
+      color: #3b3b3b;
+      font-size: 1.25rem;
+    }
+
     p {
-      font-size: 1.2rem;
-      margin: 0 0 25px 0;
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+      line-height: 1.5;
+      padding: 0 10px;
     }
-    a {
-      display: inline-block;
-      padding: 12px 25px;
-      font-size: 1rem;
-      color: white;
-      background-color: #007bff;
+
+    .footer-404 {
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      letter-spacing: 1px;
+    }
+
+    .btn {
+      margin-top: 1.2rem;
+      background: var(--light-purple);
+      color: var(--purple-text);
       text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
+      padding: 0.7rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: inline-block;
     }
-    a:hover {
-      background-color: #0056b3;
+
+    .btn:hover {
+      background: #e6d4ff;
+      transform: translateY(-2px);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .icon {
+        width: 90px;
+        height: 90px;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+      }
+
+      p {
+        font-size: 0.85rem;
+      }
+
+      .btn {
+        padding: 0.6rem 1.4rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .icon {
+        width: 75px;
+        height: 75px;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+      }
+
+      .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+      }
+
+      .footer-404 {
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
 <body>
-  <img src="https://sivanesh.me/assets/icon-B1_eCjej.png" alt="Logo">
-  <h1>404</h1>
-  <p>Oops! This page doesn’t exist.</p>
-  <a href="https://sivanesh.me">Go Back Home</a>
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="icon">
+      <img src="https://sivanesh.me/assets/icon-B1_eCjej.png" alt="Sivanesh Logo" />
+    </div>
+    <h2>Oops! Page not found.</h2>
+    <p>The page you’re looking for doesn’t exist or has been moved.</p>
+    <a href="https://sivanesh.me" class="btn">Go Back Home</a>
+    <div class="footer-404">Error 404</div>
+  </div>
 </body>
 </html>
