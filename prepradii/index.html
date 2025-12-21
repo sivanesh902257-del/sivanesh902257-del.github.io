@@ -48,8 +48,16 @@
     }
     
     .phone {
-  padding: 4px;
-  background: #111;
+  width: 280px;
+  height: 570px;
+  background: #000;
+  border-radius: 38px;          /* slightly reduced */
+  padding: 6px;                 /* 🔥 reduced from 14px */
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.25),
+    0 8px 25px rgba(124, 58, 237, 0.12);
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
     
     .phone:hover {
@@ -58,7 +66,12 @@
     }
     
     .screen {
-  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 32px;          /* adjusted to match thinner frame */
+  overflow: hidden;
+  position: relative;
 }
     
     .status-bar {
