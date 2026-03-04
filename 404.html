@@ -5,190 +5,315 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="https://sivanesh.me/assets/icon-B1_eCjej.png" />
   <title>404 - Page Not Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --purple1: #7b2ff7;
-      --purple2: #f107a3;
-      --light-purple: #f3e8ff;
-      --purple-text: #7b2ff7;
-      --gray: #6c6c6c;
-      --text: #1d1d1f;
+      --accent: #7b2ff7;
+      --text: #111;
+      --muted: #888;
+      --border: #ebebeb;
+      --bg: #fafafa;
+      --line-h: #f4f0ff;
     }
 
     body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: #fff;
+      background: var(--bg);
       color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100dvh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-      padding: 20px;
+      padding: 2rem;
     }
 
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      background-image: linear-gradient(#e0e0e0 1px, transparent 1px),
-                        linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.12;
-      z-index: 0;
-    }
-
-    .container {
-      text-align: center;
-      z-index: 1;
-      max-width: 400px;
+    .wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       width: 100%;
+      max-width: 460px;
+      animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) both;
     }
 
-    /* Centered logo with shimmer effect */
-    .icon {
-      width: 110px;
-      height: 110px;
-      margin: 10px auto 0;
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── Logo ── */
+    .logo {
+      width: 120px; height: 120px;
       border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid rgba(123,47,247,0.12);
+      margin-bottom: 1.1rem;
       position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 12px rgba(123, 47, 247, 0.15);
-      animation: float 6s ease-in-out infinite;
+      box-shadow:
+        0 0 0 5px rgba(123,47,247,0.04),
+        0 4px 14px rgba(123,47,247,0.08);
+      animation: logoPulse 3s ease-in-out infinite;
     }
 
-    .icon img {
-      width: 100%;
-      height: 100%;
+    .logo img {
+      width: 100%; height: 100%;
       object-fit: cover;
-      border-radius: 50%;
+      display: block;
     }
 
-    .icon::after {
-      content: "";
+    /* Shimmer sweep */
+    .logo::after {
+      content: '';
       position: absolute;
-      top: 0;
-      left: -150%;
-      width: 150%;
-      height: 100%;
+      inset: 0;
       background: linear-gradient(
-        120deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.5) 50%,
-        transparent 100%
+        115deg,
+        transparent 20%,
+        rgba(255,255,255,0.55) 50%,
+        transparent 80%
       );
-      animation: shimmer 4s infinite;
+      transform: translateX(-100%);
+      animation: shimmer 3.5s ease-in-out infinite;
     }
 
     @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(150%); }
+      0%   { transform: translateX(-130%); }
+      50%  { transform: translateX(130%); }
+      100% { transform: translateX(130%); }
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+    @keyframes logoPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 0 5px rgba(123,47,247,0.04),
+          0 4px 14px rgba(123,47,247,0.08);
+      }
+      50% {
+        box-shadow:
+          0 0 0 8px rgba(123,47,247,0.06),
+          0 6px 20px rgba(123,47,247,0.13);
+      }
     }
 
-    h2 {
-      margin-top: 1.4rem;
-      font-weight: 600;
-      color: #3b3b3b;
-      font-size: 1.25rem;
+    /* ── Subtitle only — no big 404 ── */
+    .subtitle {
+      font-size: 0.88rem;
+      color: #bbb;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.2px;
     }
 
-    p {
-      color: var(--gray);
-      font-size: 0.9rem;
-      margin-top: 0.4rem;
-      line-height: 1.5;
-      padding: 0 10px;
+    /* ── Terminal ── */
+    .terminal {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
     }
 
-    .footer-404 {
-      margin-top: 0.8rem;
-      font-size: 0.85rem;
-      color: #a0a0a0;
-      letter-spacing: 1px;
+    .t-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: #f7f7f7;
+      border-bottom: 1px solid var(--border);
     }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #28c840; }
+    .t-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.67rem;
+      color: #c0c0c0;
+      margin-left: auto;
+    }
+
+    .t-body {
+      padding: 1rem 1.2rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      min-height: 188px;
+    }
+
+    .log {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      line-height: 1.8;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      border-radius: 5px;
+      padding: 1px 6px;
+      margin: 0 -6px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.45s cubic-bezier(0.22,1,0.36,1),
+                  background 0.3s ease;
+    }
+    .log.visible { opacity: 1; transform: translateY(0); }
+    .log.active  { background: var(--line-h); }
+    .log.done    { background: transparent; }
+
+    .icon { flex-shrink: 0; font-size: 0.78rem; }
+    .body      { color: #555; }
+    .body .hi  { color: #7b2ff7; font-weight: 500; }
+    .body .bad { color: #dc2626; font-weight: 500; }
+    .body .ok  { color: #16a34a; font-weight: 500; }
+    .body .dim { color: #c0c0c0; }
+
+    .cursor {
+      display: inline-block;
+      width: 6px; height: 0.8em;
+      background: var(--accent);
+      vertical-align: middle;
+      border-radius: 1px;
+      margin-left: 3px;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── Buttons ── */
+    .actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.5s cubic-bezier(0.22,1,0.36,1);
+      margin-bottom: 1.25rem;
+    }
+    .actions.show { opacity: 1; transform: translateY(0); }
 
     .btn {
-      margin-top: 1.2rem;
-      background: var(--light-purple);
-      color: var(--purple-text);
-      text-decoration: none;
-      padding: 0.7rem 1.6rem;
-      border-radius: 8px;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
       display: inline-block;
+      padding: 0.6rem 1.35rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
     }
-
-    .btn:hover {
-      background: #e6d4ff;
-      transform: translateY(-2px);
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1.5px solid var(--accent);
     }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .icon {
-        width: 90px;
-        height: 90px;
-      }
-
-      h2 {
-        font-size: 1.15rem;
-      }
-
-      p {
-        font-size: 0.85rem;
-      }
-
-      .btn {
-        padding: 0.6rem 1.4rem;
-        font-size: 0.9rem;
-      }
+    .btn-primary:hover { background: #6a1fe0; border-color: #6a1fe0; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
     }
+    .btn-ghost:hover { border-color: #ccc; color: var(--text); transform: translateY(-1px); }
+
+    /* ── 404 below buttons ── */
+    .error-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: #d0d0d0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.2s;
+    }
+    .error-tag.show { opacity: 1; }
 
     @media (max-width: 480px) {
-      .icon {
-        width: 75px;
-        height: 75px;
-      }
-
-      h2 {
-        font-size: 1rem;
-      }
-
-      p {
-        font-size: 0.8rem;
-      }
-
-      .btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.85rem;
-      }
-
-      .footer-404 {
-        font-size: 0.8rem;
-      }
+      .logo { width: 96px; height: 96px; border-radius: 50%; }
+      .log { font-size: 0.7rem; }
+      .t-body { padding: 0.85rem 0.9rem; min-height: 170px; }
     }
   </style>
 </head>
 <body>
-  <div class="grid-bg"></div>
-  <div class="container">
-    <div class="icon">
-      <img src="https://sivanesh.me/assets/icon-B1_eCjej.png" alt="Sivanesh Logo" />
+
+  <div class="wrap">
+
+    <div class="logo">
+      <img src="https://sivanesh.me/assets/icon-B1_eCjej.png" alt="Sivanesh" />
     </div>
-    <h2>Oops! Page not found.</h2>
-    <p>The page you’re looking for doesn’t exist or has been moved.</p>
-    <a href="https://sivanesh.me" class="btn">Go Back Home</a>
-    <div class="footer-404">Error 404</div>
+
+    <p class="subtitle">Page not found</p>
+
+    <div class="terminal">
+      <div class="t-bar">
+        <div class="dot r"></div>
+        <div class="dot y"></div>
+        <div class="dot g"></div>
+        <span class="t-title">page-finder.sh</span>
+      </div>
+      <div class="t-body" id="logBox"></div>
+    </div>
+
+    <div class="actions" id="actions">
+      <a href="https://sivanesh.me" class="btn btn-primary">← Back to Home</a>
+      <a href="javascript:history.back()" class="btn btn-ghost">Go Back</a>
+    </div>
+
+    <span class="error-tag" id="errorTag">Error 404</span>
+
   </div>
+
+  <script>
+    function getLines() {
+      const path = window.location.pathname || '/this-page';
+      return [
+        { icon: '🔍', html: `Looking for <span class="hi">${path}</span>...` },
+        { icon: '📂', html: `Checking main pages&hellip; <span class="dim">not here</span>` },
+        { icon: '📂', html: `Checking older pages&hellip; <span class="dim">not here either</span>` },
+        { icon: '🔗', html: `Trying alternate links&hellip; <span class="dim">still nothing</span>` },
+        { icon: '❌', html: `This page <span class="bad">doesn't exist</span> — it may have moved or been deleted` },
+        { icon: '💡', html: `<span class="ok">Tip:</span> Go back home and navigate from there<span class="cursor"></span>` },
+      ];
+    }
+
+    const box      = document.getElementById('logBox');
+    const actions  = document.getElementById('actions');
+    const errorTag = document.getElementById('errorTag');
+    const delays   = [300, 600, 550, 580, 520, 560];
+
+    async function run() {
+      const lines = getLines();
+      for (let i = 0; i < lines.length; i++) {
+        await new Promise(r => setTimeout(r, delays[i]));
+
+        if (i > 0) {
+          const prev = box.children[i - 1];
+          prev.classList.remove('active');
+          prev.classList.add('done');
+        }
+
+        const row = document.createElement('div');
+        row.className = 'log';
+        row.innerHTML = `<span class="icon">${lines[i].icon}</span><span class="body">${lines[i].html}</span>`;
+        box.appendChild(row);
+
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          row.classList.add('visible', 'active');
+        }));
+      }
+
+      await new Promise(r => setTimeout(r, 550));
+      actions.classList.add('show');
+      errorTag.classList.add('show');
+    }
+
+    run();
+  </script>
+
 </body>
 </html>
